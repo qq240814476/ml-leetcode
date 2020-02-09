@@ -73,36 +73,55 @@ var simplifyPath = function(path) {
   if(path.length === 1) return '/'
   
   const stack = []
-  let flag = ''
-  let res = '/'
+  const paths = path.split('/')
+
   for(let i = 0; i< path.length; i++){
-    let k = path.charAt(i)
-    if(k !== '/'){
-      flag += k
-    }else{
-      checkFlag(flag, stack)
-      flag = ''
+    const p = paths[i]
+    if( p === '..'){
+      stack.pop()
+    }else if(p && p !== '.'){
+      stack.push(p)
     }
   }
 
-  checkFlag(flag, stack)
-
-  while(1){
-    if(stack.length === 0) break
-    res += stack.shift() + '/'
-  }
-
-  return res.length === 1 ? '/' : res.slice(0, res.length-1)
+  return '/' + stack.join('/')
 };
 
-var checkFlag = function(flag, stack){
-  if(flag !== ''){
-    if(flag === '..'){
-      stack.pop()
-    }else if(flag !== '.'){
-      stack.push(flag)
-    }
-  }
-}
+// var simplifyPath = function(path) {
+//   if(path.length === 0) return ''
+//   if(path.length === 1) return '/'
+  
+//   const stack = []
+//   let flag = ''
+//   let res = '/'
+//   for(let i = 0; i< path.length; i++){
+//     let k = path.charAt(i)
+//     if(k !== '/'){
+//       flag += k
+//     }else{
+//       checkFlag(flag, stack)
+//       flag = ''
+//     }
+//   }
+
+//   checkFlag(flag, stack)
+
+//   while(1){
+//     if(stack.length === 0) break
+//     res += stack.shift() + '/'
+//   }
+
+//   return res.length === 1 ? '/' : res.slice(0, res.length-1)
+// };
+
+// var checkFlag = function(flag, stack){
+//   if(flag !== ''){
+//     if(flag === '..'){
+//       stack.pop()
+//     }else if(flag !== '.'){
+//       stack.push(flag)
+//     }
+//   }
+// }
 // @lc code=end
 
