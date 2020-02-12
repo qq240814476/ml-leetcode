@@ -16,6 +16,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
+// 这种解法竟然叫做莫里斯遍历
 var inorderTraversal = function(root) {
     const stack = []
     const res = []
