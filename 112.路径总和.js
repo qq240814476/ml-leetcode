@@ -18,7 +18,15 @@
  * @return {boolean}
  */
 var hasPathSum = function(root, sum) {
-  
+  return dfs(root, sum)
 };
+var dfs = function(root, sum){
+  if(!root) return false
+  sum -= root.val
+  if(sum === 0 && !root.left && !root.right) return true
+  if(dfs(root.left, sum) || dfs(root.right, sum)) return true
+  return false
+}
+
 // @lc code=end
 
