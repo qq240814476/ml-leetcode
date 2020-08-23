@@ -11,7 +11,7 @@ class Solution:
         res = []
         l = len(nums)
         for i in range(l):
-            if nums[0] != 1:
+            if i == 0 and nums[i] != 1:
                 for j in range(1, nums[0]):
                     res.append(j)
             # i 不等于 0的话 ，与 上一位做差，差值不等于1 的话 循环 差值 push 到 res
