@@ -5,20 +5,20 @@
  */
 
 // @lc code=start
+let fa;
 class UnionSet {
-  constructor(n){
-      this.parent = new Array(n+1);
-      for(let i =0;i<n+1;i++){
-          this.parent[i] = i;
-      }
-  }
-  get(a){
-      return this.parent[a] == a ? a : this.get(this.parent[a]);
-  }
-  merge(a, b){
-      const pa = this.get(a), pb = this.get(b);
-      this.parent[pb] = pa;
-  }
+    constructor(n){
+        fa = new Array(n+1);
+        for(let i =0;i<n+1;i++){
+            fa[i] = i;
+        }
+    }
+}
+function get(a){
+    return fa[a] == a ? a : get(fa[a]);
+}
+function merge(a, b){
+    fa[get(b)] = get(a);
 }
 /**
 * @param {number[][]} isConnected
