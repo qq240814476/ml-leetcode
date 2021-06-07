@@ -7,14 +7,14 @@
 // @lc code=start
 class Solution {
 public:
-    void partision(vector<int> &arr, int l, int r, int base){
+    void partision(vector<int> &arr, int l, int r, int pivot){
         if(l >= r) return;
         int x = l, y = r, i = l;
         while(i <= y){
-            if(arr[i] == base) i++;
-            else if(arr[i] < base){
+            if(arr[i] == pivot) i++;
+            else if(arr[i] < pivot){
                 swap(arr[x++], arr[i++]);
-            } else if(arr[i] > base){
+            } else if(arr[i] > pivot){
                 swap(arr[y--], arr[i]);
             }
         }
