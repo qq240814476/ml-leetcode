@@ -68,23 +68,63 @@ public:
             g[x[1]].push_back(x[0]);
             indeg[x[0]]++;
         }
+        
+        // cout << "依赖数组:" << endl;
+        // for(auto x: g){
+        //     cout << "第" << x << "门课程被以下课程依赖：" << endl;
+        //     for(auto y: x){
+        //         cout << y << endl;
+        //     }
+        // }
+
+        // int j = 0;
+        // cout << "入度:" << endl;
+        // for(auto x: indeg){
+        //     cout << "第" << j++ << " 课程入度为： " << x << endl;
+        // }
         // collect indeg zero course[0]
         //! dynamic arr sizeof  is its address size, not length of arr
         // cout << sizeof(indeg) << endl;
+        // cout << endl;
+        // cout << "入度为0的课程被加入到集合中：" << endl;
+        // cout << endl;
+
         for(int i = 0; i< numCourses; i++){
-            if(!indeg[i]) q.push(i);
+            if(!indeg[i]){
+                // cout << i << " 度为零, 压入队列" << endl;
+                // cout << endl;
+                q.push(i);
+            }
         }
         // count all of courses which indeg equal to zero
         int cnt = 0;
+        // cout << endl;
+        // cout << "出度：" << endl;
+        // cout << endl;
+        
+        // cout << "此时队列中剩余个数： " << q.size() << endl;
         while(!q.empty()){
             int idx = q.front();
             q.pop();
             cnt++;
+            // cout << "课程 " << idx << " 被弹出" << endl;
+            // cout << "此时队列中剩余个数： " << q.size() << endl;
+            // cout << "可以被修完的课程数为： " << cnt << endl;
+            // cout << endl;
+            // cout << "所有依赖" << idx << "的课程的度数都减一" << endl; 
             // every course which depend idx subtract one indeg
             for(auto x: g[idx]){
-                if(--indeg[x] == 0) q.push(x);
+                // cout << "课程 " << x << " 的度为： " << indeg[x] - 1 << endl;
+                if(--indeg[x]){
+                    q.push(x);
+                    // cout << endl;
+                    // cout << x << " 度为零, 压入队列" << endl;
+                    // cout << "此时队列中剩余个数： " << q.size() << endl;
+                    // cout << endl;
+                }
             }
         }
+
         return cnt == numCourses;
     }
 };
