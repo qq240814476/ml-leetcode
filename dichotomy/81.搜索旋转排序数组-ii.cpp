@@ -62,30 +62,52 @@
 // @lc code=start
 class Solution {
 public:
-    bool find(vector<int> &a, int x, int min, int max){
-        while(min <= max){
-            int mid = min + ((max - min) >> 1);
-            if(a[mid] == x) return true;
-            if(a[mid] < x) min = mid +1;
-            else max = mid - 1;
-        }
-        return false;
-    }
+    // bool find(vector<int> &a, int x, int min, int max){
+    //     while(min <= max){
+    //         int mid = min + ((max - min) >> 1);
+    //         if(a[mid] == x) return true;
+    //         if(a[mid] < x) min = mid +1;
+    //         else max = mid - 1;
+    //     }
+    //     return false;
+    // }
+    // bool search(vector<int>& nums, int target) {
+    //     // find pivot index, compared target with nums[0]
+    //     // if equal return true
+    //     if(target == nums[0]) return true;
+    //     int pivot = 0;
+    //     // before pivot, we use overall operation to find target
+    //     for(int i = 1; i<= nums.size() -1; i++){
+    //         if(nums[i] == target) return true;
+    //         if(nums[i - 1] > nums[i]){
+    //             pivot  = i - 1;
+    //             break;
+    //         }
+    //     }
+    //     // after pivot, we use binary_search 
+    //     return find(nums, target, pivot + 1, nums.size() - 1);
+    // }
     bool search(vector<int>& nums, int target) {
-        // find pivot index, compared target with nums[0]
-        // if equal return true
-        if(target == nums[0]) return true;
-        int pivot = 0;
-        // before pivot, we use overall operation to find target
-        for(int i = 1; i<= nums.size() -1; i++){
-            if(nums[i] == target) return true;
-            if(nums[i - 1] > nums[i]){
-                pivot  = i - 1;
-                break;
+        int len = nums.size() -1;
+        if(target == nums[0] || target == nums[len]) return true;
+        int l = 0, r = len, mid;
+        while(l < len && nums[l] == nums[0]) l++;
+        while(r > 0 && nums[r] == nums[0]) r--;
+        int head = l, tail =r;
+        while(l <= r) {
+            mid = (l + r) >> 1;
+            if(target == nums[mid]) return true;
+            if(nums[mid] <= nums[tail]){
+                if(target > nums[mid] && target <= nums[tail]){
+                    l = mid +1;
+                } else r = mid - 1;
+            } else {
+                if(target < nums[mid] && target >= nums[head]){
+                    r = mid - 1;
+                } else l = mid + 1;
             }
         }
-        // after pivot, we use binary_search 
-        return find(nums, target, pivot + 1, nums.size() - 1);
+        return false;
     }
 };
 // @lc code=end
